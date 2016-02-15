@@ -5,7 +5,10 @@ var app = express();
 app.set('port', (process.env.PORT || 5000));
 
 app.get('/', function(req, res) {
-	res.send('Hello Slack!\n');
+
+	// TODO: use handlebars here
+
+	res.send('<p>Hello Slack!\n</p><p><a href="https://slack.com/oauth/authorize?scope=commands&client_id=21371350451.21380494640"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"></a></p>');
 });
 
 app.listen(app.get('port'), function() {

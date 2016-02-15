@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/lizlux/slack-rickroll",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "express-handlebars": "^3.0.0"
   },
   "engines": {
     "node": "0.12.1",
