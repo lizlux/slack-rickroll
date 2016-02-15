@@ -17,7 +17,8 @@ app.listen(app.get('port'), function() {
 
 app.get('/slack/rickroll', function(req, res) {
 	var urls,
-		index;
+		index,
+		response;
 
 	console.log('Received Rick Roll request');
 
@@ -39,15 +40,19 @@ app.get('/slack/rickroll', function(req, res) {
 			description: 'Lala Showers – Tiki Bar TV',
 			url: 'http://www.youtube.com/watch?v=r8tXjJL3xcM'
 		},
+		// Rick Roll "worship" link
 		{
-			description: 'Rick Roll “Worship” Link',
+			description: 'OMG check it out.',
 			url: 'http://rick.amigocraft.net'
 		}
 	];
 
 	index = Math.floor(Math.random() * urls.length);
 
-	console.log(urls[index]);
+	response = {
+		"response_type": "in_channel",
+		"text": urls[index].description + ' ' + urls[index].url
+	};
 
-	res.send(urls[index]);
+	res.send(response);
 });
