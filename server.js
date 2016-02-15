@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
-var bodyParser = require("body-parser");
+var bodyParser = require('body-parser');
+var http = require('http');
 
 // ENV vars SLACK_API_KEY, SLACK_API_SECRET, SLASH_COMMAND_TOKEN, TEAM_SLASH_COMMAND_TOKEN
 
@@ -23,10 +24,13 @@ app.listen(app.get('port'), function() {
 app.post('/slack/rickroll', function(req, res) {
 	var urls,
 		index,
-		response;
+		responseStatus = {error: 'unknown'};
 
 	console.log('Received Rick Roll request');
 	console.log(req.body);
+
+	// check the token
+		// if not present and accurate return status
 
 	// Urls courtesy of http://brojsimpson.com/pranks/hidden-rick-roll-video-link-collection-rickrolled/
 	urls = [
@@ -55,10 +59,33 @@ app.post('/slack/rickroll', function(req, res) {
 
 	index = Math.floor(Math.random() * urls.length);
 
-	response = {
-		"response_type": "in_channel",
-		"text": urls[index].description + ' ' + urls[index].url
+	//response = {
+	//	response_type: 'in_channel',
+	//	text: urls[index].description + ' ' + urls[index].url,
+	//	as_user: req.body.user_name,
+	//	channel: req.body.channel
+	//};
+
+	var httpGetOptions = {
+		host: 'https://slack.com/',
+		port: 80,
+		path: 'api/chat.postMessage',
+		token: req.body.token,
+		channel: req.body.channel,
+		text: urls[index].description + ' ' + urls[index].url,
+		as_user: true
 	};
 
-	res.send(response);
+	http.get(httpGetOptions, function (slackResponse) {
+		slackResponse.on('data', function(chunk){
+			console.log(chunk);
+		});
+	}).on('error', function(e){
+		console.log('Got error: ' + e.message);
+	});
+
+	// todo: make this the real status
+	responseStatus = {success: 'okay'};
+
+	res.send(responseStatus);
 });
