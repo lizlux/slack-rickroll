@@ -1,0 +1,23 @@
+{
+  "name": "slack-rickroll",
+  "version": "1.0.0",
+  "description": "Rick Roll your friends on slack",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lizlux/slack-rickroll.git"
+  },
+  "author": "Liz Lee <liz@lizlux.net> (https://github.com/lizlux)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lizlux/slack-rickroll/issues"
+  },
+  "homepage": "https://github.com/lizlux/slack-rickroll",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
