@@ -1,12 +1,15 @@
 var express = require('express');
 var app = express();
 
+
+app.set('port', (process.env.PORT || 5000));
+
 app.get('/', function(req, res) {
 	res.send('Hello Slack!\n');
 });
-app.listen(3001);
-
-console.log('Listening on port 3001...');
+app.listen(app.get('port'), function() {
+	console.log('Node app is running on port', app.get('port'));
+});
 
 app.get('/slack/rickroll', function(req, res) {
 	var urls,
